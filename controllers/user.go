@@ -76,6 +76,7 @@ func UserFirstLogin(c *gin.Context) {
 		Data:   info.Data,
 		Claims: "",
 		Dirty:  true,
+		Code: "",
 	}).Error; err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Something went wrong, Please try again."})
 		return

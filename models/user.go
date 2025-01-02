@@ -24,6 +24,7 @@ type (
 		Matches string `json:"matches" bson:"matches"`
 		Dirty   bool   `json:"dirty" bson:"dirty"`
 		Publish bool   `json:"publish" bson:"publish"`
+		Code 	string  `json:"code" bson:"code"`
 	}
 )
 type UserPublicKey struct {
@@ -55,6 +56,15 @@ type TypeUserFirst struct {
 type UserLogin struct {
 	Id   string `json:"_id" binding:"required"`
 	Pass string `json:"passHash" binding:"required"`
+}
+
+type RecoveryCodeReq struct {
+	Pass string `json:"passHash" binding:"required"` 
+	Code string `json:"code" binding:"required"`
+}
+
+type RetrivePassReq struct {
+	Id string `json:"_id" binding:"required"`
 }
 
 // w'll change it later (maybee..)
