@@ -69,6 +69,13 @@
       "email": "mjlivetowork@gmail.com",
       "gender": "M",
       "passHash": "aaa"
+    },
+    {
+      "roll": "230310",
+      "name": "Cezan Vispi Damania",
+      "email": "1",
+      "gender": "M",
+      "passHash": "aaa"
     }
   ]
 }

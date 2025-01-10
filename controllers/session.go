@@ -122,13 +122,13 @@ func UserLogout(c *gin.Context) {
 	cookie := &http.Cookie{
 		Name:     "Authorization",
 		Value:    "",
-		Expires:  time.Now().Add(-time.Hour), // Expire the cookie immediately
-		MaxAge:  -1,
+		Expires:  time.Unix(0,0), // Expire the cookie immediately
+		// MaxAge:  -1,
 		Path:     "/",
 		Domain:   os.Getenv("DOMAIN"),
 		HttpOnly: true,
 		Secure:   false,
-		SameSite: http.SameSiteNoneMode,
+		SameSite: http.SameSiteStrictMode,
 		// For Htpps
 		// HttpOnly: false,
 		// Secure:   true, // Set this to true if you're using HTTPS, false for HTTP
