@@ -10,21 +10,23 @@ type (
 	// User represents the structure of our resource
 	User struct {
 		gorm.Model
-		Id      string `json:"_id" bson:"_id" gorm:"unique"`
-		Name    string `json:"name" bson:"name"`
-		Email   string `json:"email" bson:"email" gorm:"unique"`
-		Gender  string `json:"gender" bson:"gender"`
-		Pass    string `json:"passHash" bson:"passHash"`
-		PubK    string `json:"pubKey" bson:"pubKey"`
-		PrivK   string `json:"privKey" bson:"privKey"`
-		AuthC   string `json:"authCode" bson:"authCode"`
-		Data    string `json:"data" bson:"data"`
-		Claims  string `json:"claims" bson:"claims"`
-		Submit  bool   `json:"submitted" bson:"submitted"`
-		Matches string `json:"matches" bson:"matches"`
-		Dirty   bool   `json:"dirty" bson:"dirty"`
-		Publish bool   `json:"publish" bson:"publish"`
-		Code 	string  `json:"code" bson:"code"`
+		Id       string `json:"_id" bson:"_id" gorm:"unique"`
+		Name     string `json:"name" bson:"name"`
+		Email    string `json:"email" bson:"email" gorm:"unique"`
+		Gender   string `json:"gender" bson:"gender"`
+		Pass     string `json:"passHash" bson:"passHash"`
+		PubK     string `json:"pubKey" bson:"pubKey"`
+		PrivK    string `json:"privKey" bson:"privKey"`
+		AuthC    string `json:"authCode" bson:"authCode"`
+		Data     string `json:"data" bson:"data"`
+		Claims   string `json:"claims" bson:"claims"`
+		Submit   bool   `json:"submitted" bson:"submitted"`
+		Matches  string `json:"matches" bson:"matches"`
+		Dirty    bool   `json:"dirty" bson:"dirty"`
+		Publish  bool   `json:"publish" bson:"publish"`
+		Code     string `json:"code" bson:"code"`
+		About    string `json:"about" bson:"about"`
+		Intrests string `json:"intrests" bson:"intrests"`
 	}
 )
 type UserPublicKey struct {
@@ -59,12 +61,20 @@ type UserLogin struct {
 }
 
 type RecoveryCodeReq struct {
-	Pass string `json:"passHash" binding:"required"` 
+	Pass string `json:"passHash" binding:"required"`
 	Code string `json:"code" binding:"required"`
 }
 
 type RetrivePassReq struct {
 	Id string `json:"_id" binding:"required"`
+}
+
+type UpdateAbout struct {
+	About string `json:"about" binding:"required"`
+}
+
+type UpdateIntrest struct {
+	Intrests string `json:"intrests" binding:"required"`
 }
 
 // w'll change it later (maybee..)

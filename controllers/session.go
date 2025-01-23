@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"errors"
+	"fmt"
 	"net/http"
 	"os"
 	"time"
@@ -22,6 +23,7 @@ func UserLogin(c *gin.Context) {
 	loginmodel := models.User{}
 	verifyuser := Db.Model(&loginmodel).Where("id = ? AND pass = ?", info.Id, info.Pass).First(&loginmodel)
 	if verifyuser.Error != nil {
+		fmt.Println(verifyuser.Error)
 		if errors.Is(verifyuser.Error, gorm.ErrRecordNotFound) {
 			c.JSON(http.StatusForbidden, gin.H{"error": "Invalid Login Request."})
 			return
@@ -38,11 +40,11 @@ func UserLogin(c *gin.Context) {
 	}
 	expirationTime := time.Now().Add(time.Hour * 24)
 	cookie := &http.Cookie{
-		Name:     "Authorization",
-		Value:    token,
-		Expires:  expirationTime,
-		Path:     "/",
-		Domain:   os.Getenv("DOMAIN"),
+		Name:    "Authorization",
+		Value:   token,
+		Expires: expirationTime,
+		Path:    "/",
+		Domain:  os.Getenv("DOMAIN"),
 		// For Http
 		HttpOnly: true,
 		Secure:   false, // Set this to true if you're using HTTPS, false for HTTP
@@ -75,7 +77,7 @@ func AddRecovery(c *gin.Context) {
 			return
 		}
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Some Error occured Please try later"})
-	}else {
+	} else {
 		c.JSON(http.StatusAccepted, gin.H{"message": "Recovery Code Added Sucessfully!"})
 	}
 }
@@ -88,16 +90,16 @@ func RetrivePass(c *gin.Context) {
 	}
 	user := models.User{}
 	record := Db.Model(&user).Where("id = ?", req.Id).First(&user)
-	if record.Error!= nil {
+	if record.Error != nil {
 		if errors.Is(record.Error, gorm.ErrRecordNotFound) {
 			c.JSON(http.StatusForbidden, gin.H{"error": "User Does Not Exist"})
 			return
 		}
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Some Error occured Please try later"})
-		return	
+		return
 	} else {
 		passCode := user.Code
-		if passCode == ""  {
+		if passCode == "" {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "Didn't Registered With Recovery Codes"})
 			return
 		}
@@ -105,7 +107,7 @@ func RetrivePass(c *gin.Context) {
 		return
 	}
 }
- 
+
 func GetUserData(c *gin.Context) {
 	userID, _ := c.Get("user_id")
 	user := models.User{}
@@ -115,14 +117,14 @@ func GetUserData(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": result.Error.Error()})
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{"message": "Data retrieved successfully !!", "id": userID, "data": user.Data, "gender": user.Gender, "submit": user.Submit, "claims": user.Claims, "permit": permit, "publish": user.Publish})
+	c.JSON(http.StatusOK, gin.H{"message": "Data retrieved successfully !!", "id": userID, "data": user.Data, "gender": user.Gender, "submit": user.Submit, "claims": user.Claims, "permit": permit, "publish": user.Publish, "about": user.About, "intrest": user.Intrests})
 }
 
 func UserLogout(c *gin.Context) {
 	cookie := &http.Cookie{
-		Name:     "Authorization",
-		Value:    "",
-		Expires:  time.Unix(0,0), // Expire the cookie immediately
+		Name:    "Authorization",
+		Value:   "",
+		Expires: time.Unix(0, 0), // Expire the cookie immediately
 		// MaxAge:  -1,
 		Path:     "/",
 		Domain:   os.Getenv("DOMAIN"),
