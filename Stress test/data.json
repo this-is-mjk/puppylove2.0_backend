@@ -62,20 +62,6 @@
       "email": "manasjain23@iitk.ac.in",
       "gender": "M",
       "passHash": "aaa"
-    },
-    {
-      "roll": "230772",
-      "name": "Pranav Krishna",
-      "email": "mjlivetowork@gmail.com",
-      "gender": "M",
-      "passHash": "aaa"
-    },
-    {
-      "roll": "230310",
-      "name": "Cezan Vispi Damania",
-      "email": "1",
-      "gender": "M",
-      "passHash": "aaa"
     }
   ]
 }

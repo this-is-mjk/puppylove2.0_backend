@@ -46,13 +46,13 @@ func UserLogin(c *gin.Context) {
 		Path:    "/",
 		Domain:  os.Getenv("DOMAIN"),
 		// For Http
-		HttpOnly: true,
-		Secure:   false, // Set this to true if you're using HTTPS, false for HTTP
-		SameSite: http.SameSiteStrictMode,
+		// HttpOnly: true,
+		// Secure:   false, // Set this to true if you're using HTTPS, false for HTTP
+		// SameSite: http.SameSiteStrictMode,
 		// For Https
-		// HttpOnly: false,
-		// Secure:   true, // Set this to true if you're using HTTPS, false for HTTP
-		// SameSite: http.SameSiteNoneMode,
+		HttpOnly: false,
+		Secure:   true, // Set this to true if you're using HTTPS, false for HTTP
+		SameSite: http.SameSiteNoneMode,
 	}
 	// at the time of login, we set the auth cookie and send back the pub and priv keys
 	http.SetCookie(c.Writer, cookie)
@@ -128,13 +128,13 @@ func UserLogout(c *gin.Context) {
 		// MaxAge:  -1,
 		Path:     "/",
 		Domain:   os.Getenv("DOMAIN"),
-		HttpOnly: true,
-		Secure:   false,
-		SameSite: http.SameSiteStrictMode,
+		// HttpOnly: true,
+		// Secure:   false,
+		// SameSite: http.SameSiteStrictMode,
 		// For Htpps
-		// HttpOnly: false,
-		// Secure:   true, // Set this to true if you're using HTTPS, false for HTTP
-		// SameSite: http.SameSiteNoneMode,
+		HttpOnly: false,
+		Secure:   true, // Set this to true if you're using HTTPS, false for HTTP
+		SameSite: http.SameSiteNoneMode,
 	}
 
 	http.SetCookie(c.Writer, cookie)

@@ -74,7 +74,7 @@ type UpdateAbout struct {
 }
 
 type UpdateIntrest struct {
-	Intrests string `json:"intrests" binding:"required"`
+	Intrests string `json:"intrests"`
 }
 
 // w'll change it later (maybee..)
